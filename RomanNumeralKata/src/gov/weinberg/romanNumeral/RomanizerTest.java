@@ -20,20 +20,20 @@ public class RomanizerTest {
 
 	@Test
 	public void testNumberToNumeral() {
-		assertEquals(romanizer.reinterpret("100"),"C");
-		assertEquals(romanizer.reinterpret("1800"),"MDCCC");
-		assertEquals(romanizer.reinterpret("99"),"XCIX");
-		assertEquals(romanizer.reinterpret("3999"),"MMMCMXCIX");
-		assertEquals(romanizer.reinterpret("1"),"I");
+		assertEquals("C",romanizer.reinterpret("100"));
+		assertEquals("MDCCC",romanizer.reinterpret("1800"));
+		assertEquals("XCIX",romanizer.reinterpret("99"));
+		assertEquals("MMMCMXCIX",romanizer.reinterpret("3999"));
+		assertEquals("I",romanizer.reinterpret("1"));
 	}
 
 	@Test
 	public void testNumeralToNumber() {
-		assertEquals(romanizer.reinterpret("C"),"100");
-		assertEquals(romanizer.reinterpret("XIV"),"14");
-		assertEquals(romanizer.reinterpret("DCCCXC"),"890");
-		assertEquals(romanizer.reinterpret("XXXIX"),"39");
-		assertEquals(romanizer.reinterpret("MMMCMXCIX"),"3999");
+		assertEquals("100",romanizer.reinterpret("C"));
+		assertEquals("14",romanizer.reinterpret("XIV"));
+		assertEquals("890",romanizer.reinterpret("DCCCXC"));
+		assertEquals("39",romanizer.reinterpret("XXXIX"));
+		assertEquals("3999",romanizer.reinterpret("MMMCMXCIX"));
 	}
 	
 	@Test(expected=Exception.class)
@@ -49,5 +49,10 @@ public class RomanizerTest {
 	@Test(expected=Exception.class)
 	public void testNumberTooLargeException() {
 		romanizer.reinterpret("4000");
+	}
+
+	@Test(expected=Exception.class)
+	public void testAlmostButNotQuiteValidNumeral() {
+		romanizer.reinterpret("IXIX");
 	}
 }
