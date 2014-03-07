@@ -15,11 +15,12 @@ class Romanizer {
 	
 	String numberToNumeral(String numberString){
 		def number = Integer.parseInt(numberString);
-		def result = ''
-		def index = fullRomanDigits.size - 1
 		if(number >= 4000 || number < 1){
 			throw new Exception()
 		}
+		
+		def result = ''
+		def index = fullRomanDigits.size - 1
 		while(index >= 0 && number > 0){
 			if(fullRomanDigitNumbers[index] <= number){
 				result += fullRomanDigits[index] 
@@ -32,17 +33,25 @@ class Romanizer {
 	}
 	
 	String numeralToNumber(String numeral){
+		if(!(numeral ==~ /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/)) {
+			//Because I gave up on not using one for numbers like IXIX
+			throw new Exception()
+		}
+		
 		def number = 0
-		int lastNumeralIndex = 7;
 		for(int i = 0; i < numeral.length() - 1; i++){
-			String currentChar = numeral.getAt(i)
-			if(romanDigits[currentChar] <  romanDigits[numeral.getAt(i+1)]){
-				number -= romanDigits[currentChar]
-			} else {
-				number += romanDigits[currentChar]
-			}
+			number += getNumberChangeForNumeralDigit(numeral, i);
 		}
 		number += romanDigits[numeral.getAt(numeral.length() - 1)]
 		number.toString()
+	}
+	
+	int getNumberChangeForNumeralDigit(String numeral, int index){
+		String currentChar = numeral.getAt(index)
+		if(romanDigits[currentChar] <  romanDigits[numeral.getAt(index+1)]){
+			-1 * romanDigits[currentChar]
+		} else {
+			romanDigits[currentChar]
+		}
 	}
 }

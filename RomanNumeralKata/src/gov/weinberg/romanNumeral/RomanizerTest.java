@@ -25,6 +25,7 @@ public class RomanizerTest {
 		assertEquals("XCIX",romanizer.reinterpret("99"));
 		assertEquals("MMMCMXCIX",romanizer.reinterpret("3999"));
 		assertEquals("I",romanizer.reinterpret("1"));
+		assertEquals("MCMXCIX",romanizer.reinterpret("1999"));
 	}
 
 	@Test
@@ -34,6 +35,7 @@ public class RomanizerTest {
 		assertEquals("890",romanizer.reinterpret("DCCCXC"));
 		assertEquals("39",romanizer.reinterpret("XXXIX"));
 		assertEquals("3999",romanizer.reinterpret("MMMCMXCIX"));
+		assertEquals("1999",romanizer.reinterpret("MCMXCIX"));
 	}
 	
 	@Test(expected=Exception.class)
